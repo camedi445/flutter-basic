@@ -1,22 +1,19 @@
-import 'discount_mixin.dart';
-import 'product.dart';
 
-class EarlyAccessProduct extends Product with DiscountMixin{
-  EarlyAccessProduct({
-    required String title,
-    required double price,
-    required int quantity,
-  }) : 
-  super(
-            title: title,
-            price: price,
-            quantity: quantity,
-            type: ProductType.earlyAccess);
 
-  EarlyAccessProduct.fromJson(Map<String, dynamic> json)
-      : super(
-            title: json['title'] ?? 'titulo no definido',
-            price: json['price'] ?? 0.0,
-            quantity: json['quantity'] ?? 0,
-            type: json['type'] ?? ProductType.earlyAccess);
-}
+mixin InventoryMixin {
+
+    int _stock = 0;
+
+    int get stock => _stock;
+
+    void addStock(int quantity) {
+      _stock += quantity;
+    }
+
+    void removeStock(int quantity) {
+     if(quantity < 0 ) throw 'La cantidad debe ser positiva';
+     if(_stock - quantity < 0) throw 'No hay suficiente stock';
+      _stock -= quantity;
+    }
+
+}	
