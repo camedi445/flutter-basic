@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/presentation/product_detail.dart';
+import 'package:flutter_application_2/presentation/dashboard/dashboard_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const ProductDetail(),
+      home: const DashboardScreen(),
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.blue,
