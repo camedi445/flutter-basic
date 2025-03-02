@@ -1,59 +1,33 @@
-import 'package:feed/image_post.dart';
-import 'package:feed/post_datasource.dart';
-import 'package:feed/video_post.dart';
+import 'package:feed/post_service.dart';
 
 void main() async {
   // Cargar datos del feed desde un recurso local
-  final postDatasource = PostDatasource();
+  final postService = PostService();
 
-  print('Iniciando carga de datos...');
-  // Código usando await y try-catch
-  try {
-    final posts = await postDatasource.getFeed();
-    for (final post in posts) {
-      if (post is ImagePost) {
-        // Cargar comportamiento de la imagen
-        post.like();
-        post.like();
-        post.like();
-        post.unlike();
-        post.addComment('Hermosa foto');
-      } else if (post is VideoPost) {
-        // Cargar comportamiento del video
-        post.like();
-        post.like();
-        post.like();
-      }
-      post.display();
-      print('\n');
-    }
-    print('Carga de datos finalizada');
-  } catch (error) {
-    print('Error: $error');
-  }
+  print('Cargando los datos desde el servicio');
+  final futureFeed = postService.getFeed();
 
-  // Código original usando lambda
-  postDatasource.getFeed().then((posts) {
+  /*futureFeed.then((posts) {
     for (final post in posts) {
-      if (post is ImagePost) {
-        // Cargar comportamiento de la imagen
-        post.like();
-        post.like();
-        post.like();
-        post.unlike();
-        post.addComment('Hermosa foto');
-      } else if (post is VideoPost) {
-        // Cargar comportamiento del video
-        post.like();
-        post.like();
-        post.like();
-      }
       post.display();
-      print('\n');
     }
   }).catchError((error) {
-    print('Error: $error');
+    print('Ocurrió un error cargando los datos: $error');
   }).whenComplete(() {
-    print('Carga de datos finalizada');
+    print('Carga de datos finalizada.');
+  });*/
+
+  /*final listOfPost = await postService.getFeed();
+  for (final post in listOfPost) {
+    post.display();
+  }*/
+
+  final postStream = postService.getPostStream();
+
+  postStream.listen((post) {
+    post.display();
+    print('\n Esperando el siguiente post \n');
   });
+
+  print('Mostrando datos adicionales');
 }
