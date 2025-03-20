@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/home/home_screen.dart';
+import 'package:recipes/ui/recipe_list_by_category/recipe_list_by_category.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,7 +12,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: RecipeListByCategoryScreen(),
     );
   }
 }

@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/home/recipe_item/widgets/avatar_info.dart';
-import 'package:recipes/home/recipe_item/widgets/recipe_item_category.dart';
-import 'package:recipes/home/recipe_item/widgets/recipe_item_image.dart';
-import 'package:recipes/home/recipe_item/widgets/recipe_item_name.dart';
+import 'package:recipes/domain/model/recipe.dart';
+import 'package:recipes/ui/recipe_list_by_category/recipe_item/widgets/avatar_info.dart';
+import 'package:recipes/ui/recipe_list_by_category/recipe_item/widgets/recipe_item_category.dart';
+import 'package:recipes/ui/recipe_list_by_category/recipe_item/widgets/recipe_item_image.dart';
+import 'package:recipes/ui/recipe_list_by_category/recipe_item/widgets/recipe_item_name.dart';
 
 class RecipeItem extends StatelessWidget {
-  final String name;
-  final String imageUrl;
-  final bool isFavourite;
+  final Recipe recipe;
   final VoidCallback onFavouriteTap;
 
   const RecipeItem({
     super.key,
-    required this.name,
-    required this.imageUrl,
-    required this.isFavourite,
+    required this.recipe,
     required this.onFavouriteTap,
   });
 
@@ -28,10 +25,10 @@ class RecipeItem extends StatelessWidget {
         children: [
           AvatarInfo(),
           RecipeItemImage(
-              imageUrl: imageUrl,
-              isFavourite: isFavourite,
+              imageUrl: recipe.imageUrl,
+              isFavourite: recipe.isFavorite,
               onFavouriteTap: onFavouriteTap),
-          RecipeItemName(name: name),
+          RecipeItemName(name: recipe.name),
           RecipeItemCategory(),
         ],
       ),
