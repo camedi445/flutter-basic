@@ -8,11 +8,13 @@ import 'package:recipes/ui/category_recipe_list/recipe_item/widgets/recipe_name.
 class RecipeItem extends StatelessWidget {
   final Recipe recipe;
   final VoidCallback onFavoriteTap;
+  final VoidCallback onNameTap;
 
   const RecipeItem({
     super.key,
     required this.recipe,
     required this.onFavoriteTap,
+    required this.onNameTap,
   });
 
   @override
@@ -30,6 +32,7 @@ class RecipeItem extends StatelessWidget {
           ),
           RecipeName(
             name: recipe.name,
+            onNameTap: onNameTap,
           ),
           RecipeCategory(),
         ],

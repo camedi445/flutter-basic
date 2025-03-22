@@ -1,7 +1,7 @@
 class Recipe {
   final String name;
   final String imageUrl;
-  final bool isFavorite;
+  bool isFavorite = false; // TODO se debe mantener inmutable
 
   Recipe({
     required this.name,

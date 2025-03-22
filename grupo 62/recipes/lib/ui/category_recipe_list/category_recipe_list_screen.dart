@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:recipes/data/recipe_service.dart';
 import 'package:recipes/domain/model/recipe.dart';
 import 'package:recipes/ui/category_recipe_list/recipe_item/recipe_item.dart';
+import 'package:recipes/ui/recipe_detail/recipe_detail_screen.dart';
+import 'package:recipes/ui/widgets/empty_state.dart';
+import 'package:recipes/ui/widgets/loading.dart';
 
 class CategoryRecipeListScreen extends StatefulWidget {
   const CategoryRecipeListScreen({super.key});
@@ -14,6 +17,7 @@ class _CategoryRecipeListState extends State<CategoryRecipeListScreen> {
   final recipeService =
       RecipeService(); // TODO hay que delegar esa creacion a otro elemento
   List<Recipe> _recipeList = [];
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -22,48 +26,69 @@ class _CategoryRecipeListState extends State<CategoryRecipeListScreen> {
     _fetchRecipeListByCategory();
   }
 
+  // TODO is delegar este codigo al controlador
+
   Future<void> _fetchRecipeListByCategory() async {
-    final list = await recipeService.fetchRecipeListByCategory('SeaFood');
     setState(() {
-      _recipeList = list;
+      _isLoading = true;
     });
+    try {
+      final list = await recipeService.fetchRecipeListByCategory('Chicken');
+      setState(() {
+        _recipeList = list;
+        _isLoading = false;
+      });
+    } catch (error) {
+      setState(() {
+        _isLoading = false;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              error.toString(),
+            ),
+          ),
+        );
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     // Esta logica se aplica antes del renderizado
     return Scaffold(
-      body: _recipeList.isEmpty
-          ? Center(
-              child: SizedBox(
-                height: 200,
-                width: 200,
-                child: Text(
-                  'Cargando',
-                  style: TextStyle(fontSize: 40),
-                ),
-              ),
-            )
+      body: _isLoading
+          ? Loading()
           : Padding(
               padding: const EdgeInsets.all(16.0),
               child: SafeArea(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.45,
-                  children: List.generate(
-                    _recipeList.length,
-                    (index) {
-                      return RecipeItem(
-                        recipe: _recipeList[index],
-                        onFavoriteTap: () {
-                          setState(() {
-                            //_favorites[index] = !_favorites[index]; // TODO organizar estados
-                          });
-                        },
-                      );
-                    },
-                  ),
-                ),
+                child: _recipeList.isEmpty
+                    ? EmptyState()
+                    : GridView.count(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.4,
+                        children: List.generate(
+                          _recipeList.length,
+                          (index) {
+                            return RecipeItem(
+                              recipe: _recipeList[index],
+                              onFavoriteTap: () {
+                                setState(() {
+                                  _recipeList[index].isFavorite =
+                                      !_recipeList[index].isFavorite;
+                                });
+                              },
+                              onNameTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RecipeDetailScreen(),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
               ),
             ),
     );

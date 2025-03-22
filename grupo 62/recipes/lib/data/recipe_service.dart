@@ -21,11 +21,13 @@ import 'package:http/http.dart' as http;
 
 class RecipeService {
   Future<List<Recipe>> fetchRecipeListByCategory(String categoyName) async {
-    var url = Uri.https('www.themealdb.com', '/api/json/v1/1/filter.php', {
+    final url = Uri.https('www.themealdb.com', '/api/json/v1/1/filter.php', {
       'c': categoyName,
     });
-    await Future.delayed(Duration(seconds: 1));
-    var response = await http.get(url);
+    await Future.delayed(Duration(seconds: 5));
+
+    final response = await http.get(url);
+
     if (response.statusCode == 200) {
       final List<dynamic> listOfJson =
           jsonDecode(response.body)['meals'] as List;
