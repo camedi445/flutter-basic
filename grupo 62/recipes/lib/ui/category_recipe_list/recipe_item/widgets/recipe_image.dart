@@ -6,17 +6,21 @@ class RecipeImage extends StatelessWidget {
   final String imageUrl;
   final bool isFavorite;
   final VoidCallback onFavoriteTap;
+  final VoidCallback onDetailTap;
 
-  const RecipeImage(
-      {super.key,
-      required this.imageUrl,
-      required this.isFavorite,
-      required this.onFavoriteTap});
+  const RecipeImage({
+    super.key,
+    required this.imageUrl,
+    required this.isFavorite,
+    required this.onFavoriteTap,
+    required this.onDetailTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onFavoriteTap,
+      onTap: onDetailTap,
+      onDoubleTap: onFavoriteTap,
       child: Padding(
         padding: const EdgeInsets.only(top: 20.0),
         child: Stack(children: [

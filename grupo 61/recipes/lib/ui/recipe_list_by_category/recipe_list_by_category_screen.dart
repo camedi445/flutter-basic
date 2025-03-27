@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipes/data/service/recipe_service.dart';
 import 'package:recipes/domain/model/recipe.dart';
+import 'package:recipes/ui/recipe_detail/recipe_detail_screen.dart';
 import 'package:recipes/ui/recipe_list_by_category/recipe_item/recipe_item.dart';
 import 'package:recipes/ui/widgets/empty_state.dart';
 import 'package:recipes/ui/widgets/loading.dart';
@@ -64,12 +65,15 @@ class _RecipeListByCategoryScreenState
                     padding: const EdgeInsets.all(12.0),
                     child: GridView.count(
                       crossAxisCount: 2,
-                      childAspectRatio: 0.45,
+                      childAspectRatio: 0.55,
                       children: List.generate(
                         _recipeList.length,
                         (index) {
                           return RecipeItem(
                             recipe: _recipeList[index],
+                            onDetailTap: () {
+                              Navigator.pushNamed(context, '/recipeDetail');
+                            },
                             onFavouriteTap: () {
                               setState(() {
                                 _recipeList[index].isFavorite =

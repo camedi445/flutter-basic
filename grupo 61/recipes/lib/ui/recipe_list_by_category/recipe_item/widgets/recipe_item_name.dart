@@ -13,6 +13,8 @@ class RecipeItemName extends StatelessWidget {
       padding: const EdgeInsets.only(top: 16.0),
       child: Text(
         name,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         style: TextStyle(
           fontSize: 22.0,
           color: Color(0xFF2E3E5C),

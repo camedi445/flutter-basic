@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/ui/recipe_list_by_category/recipe_list_by_category.dart';
+import 'package:recipes/ui/home/home_screen.dart';
+import 'package:recipes/ui/recipe_detail/recipe_detail_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,7 +13,11 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: RecipeListByCategoryScreen(),
+      routes: {
+        '/': (context) => const HomeScreen(),
+        '/recipeDetail': (context) => const RecipeDetailScreen(
+            id: 'id'), // TODO arreglar la nevagacion al detalle
+      },
     );
   }
 }

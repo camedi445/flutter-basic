@@ -65,7 +65,7 @@ class _CategoryRecipeListState extends State<CategoryRecipeListScreen> {
                     ? EmptyState()
                     : GridView.count(
                         crossAxisCount: 2,
-                        childAspectRatio: 0.4,
+                        childAspectRatio: 0.55,
                         children: List.generate(
                           _recipeList.length,
                           (index) {
@@ -77,11 +77,12 @@ class _CategoryRecipeListState extends State<CategoryRecipeListScreen> {
                                       !_recipeList[index].isFavorite;
                                 });
                               },
-                              onNameTap: () {
+                              onDetailTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        const RecipeDetailScreen(),
+                                    builder: (context) => RecipeDetailScreen(
+                                      id: _recipeList[index].id,
+                                    ),
                                   ),
                                 );
                               },

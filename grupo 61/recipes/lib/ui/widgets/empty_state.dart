@@ -10,10 +10,21 @@ class EmptyState extends StatelessWidget {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(
-          'No hay recetas para la categoría',
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 30.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 120.0,
+              child: const Image(
+                image: AssetImage('assets/ic_empty_state.png'),
+              ),
+            ),
+            Text(
+              'Ups! no hay nada por aquí.',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 30.0),
+            ),
+          ],
         ),
       ),
     );
