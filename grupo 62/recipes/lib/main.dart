@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/ui/home/home_screen.dart';
-import 'package:recipes/ui/recipe_detail/recipe_detail_screen.dart';
+import 'package:recipes/ui/navigation/app_router.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,13 +10,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      routes: {
-        '/': (context) => const HomeScreen(),
-        '/recipeDetail': (context) => const RecipeDetailScreen(id: 'id'),
-        // TODO arreglar la navegacion
-      },
+      routerConfig: appRouter,
     );
   }
 }

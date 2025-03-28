@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recipes/data/recipe_service.dart';
 import 'package:recipes/domain/model/recipe.dart';
 import 'package:recipes/ui/category_recipe_list/recipe_item/recipe_item.dart';
@@ -78,13 +79,8 @@ class _CategoryRecipeListState extends State<CategoryRecipeListScreen> {
                                 });
                               },
                               onDetailTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => RecipeDetailScreen(
-                                      id: _recipeList[index].id,
-                                    ),
-                                  ),
-                                );
+                                context.go(
+                                    '/home/recipeDetail/${_recipeList[index].id}');
                               },
                             );
                           },
