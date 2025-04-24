@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:recipes/data/recipe_service.dart';
 import 'package:recipes/domain/model/recipe.dart';
 import 'package:recipes/ui/category_recipe_list/recipe_item/recipe_item.dart';
-import 'package:recipes/ui/recipe_detail/recipe_detail_screen.dart';
 import 'package:recipes/ui/widgets/empty_state.dart';
 import 'package:recipes/ui/widgets/loading.dart';
 
@@ -74,8 +73,7 @@ class _CategoryRecipeListState extends State<CategoryRecipeListScreen> {
                               recipe: _recipeList[index],
                               onFavoriteTap: () {
                                 setState(() {
-                                  _recipeList[index].isFavorite =
-                                      !_recipeList[index].isFavorite;
+                                  
                                 });
                               },
                               onDetailTap: () {

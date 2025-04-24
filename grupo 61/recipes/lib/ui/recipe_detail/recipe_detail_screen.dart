@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
-  final String id;
+  final String? id;
   const RecipeDetailScreen({
     super.key,
     required this.id,
@@ -15,7 +15,7 @@ class RecipeDetailScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Center(
-          child: Text(id),
+          child: Text(id ?? 'Id no encontrado'),
         ),
       ),
     );

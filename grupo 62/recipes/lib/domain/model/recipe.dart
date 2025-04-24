@@ -1,10 +1,13 @@
+import "package:flutter/material.dart";
+
+@immutable
 class Recipe {
   final String id;
   final String name;
   final String imageUrl;
-  bool isFavorite = false; // TODO se debe mantener inmutable
+  final bool isFavorite;
 
-  Recipe({
+  const Recipe({
     required this.id,
     required this.name,
     required this.imageUrl,

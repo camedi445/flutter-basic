@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/data/service/recipe_service.dart';
+import 'package:go_router/go_router.dart';
+import 'package:recipes/data/datasource/recipe_api_datasource.dart';
+import 'package:recipes/data/datasource/recipe_shared_preference_datasource.dart';
+import 'package:recipes/data/repository/recipe_repository.dart';
 import 'package:recipes/domain/model/recipe.dart';
 import 'package:recipes/ui/recipe_detail/recipe_detail_screen.dart';
 import 'package:recipes/ui/recipe_list_by_category/recipe_item/recipe_item.dart';
@@ -20,7 +23,6 @@ class _RecipeListByCategoryScreenState
   bool _isLoading = false;
   //String? _errorMessage;
 
-  final RecipeService _recipeService = RecipeService();
   // TODO se debe crear el servicio en otra parte
 
   Future<void> _fetchRecipeListByCategory() async {
@@ -29,7 +31,7 @@ class _RecipeListByCategoryScreenState
     });
     try {
       final recipeList =
-          await _recipeService.fetchRecipeListByCategory('Chicken');
+          await recipeLocalStorageRepository.getRecipeListByCategory('Chicken');
       await Future.delayed(Duration(seconds: 5));
       setState(() {
         _recipeList = recipeList;
@@ -72,7 +74,8 @@ class _RecipeListByCategoryScreenState
                           return RecipeItem(
                             recipe: _recipeList[index],
                             onDetailTap: () {
-                              Navigator.pushNamed(context, '/recipeDetail');
+                              context.go(
+                                  '/home/recipeDetail/${_recipeList[index].id}');
                             },
                             onFavouriteTap: () {
                               setState(() {

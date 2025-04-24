@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:recipes/domain/datasource/recipe_datasource.dart';
 import 'package:recipes/domain/model/recipe.dart';
 import 'package:http/http.dart' as http;
 
-class RecipeService {
+class RecipeApiDatasource extends RecipeDatasource {
+  @override
   Future<List<Recipe>> fetchRecipeListByCategory(String categoryName) async {
     final url = Uri.https(
       'www.themealdb.com',

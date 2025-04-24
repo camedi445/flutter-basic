@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:recipes/ui/home/home_screen.dart';
-import 'package:recipes/ui/recipe_detail/recipe_detail_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipes/ui/navigation/routes.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -11,13 +11,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      routes: {
-        '/': (context) => const HomeScreen(),
-        '/recipeDetail': (context) => const RecipeDetailScreen(
-            id: 'id'), // TODO arreglar la nevagacion al detalle
-      },
+      routerConfig: router,
     );
   }
 }
