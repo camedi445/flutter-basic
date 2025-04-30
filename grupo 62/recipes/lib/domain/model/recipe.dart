@@ -14,6 +14,16 @@ class Recipe {
     required this.isFavorite,
   });
 
+  Recipe copyWith(
+      {String? id, String? name, String? imageUrl, bool? isFavorite}) {
+    return Recipe(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      imageUrl: imageUrl ?? this.imageUrl,
+      isFavorite: isFavorite ?? this.isFavorite,
+    );
+  }
+
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe(
       id: json['idMeal'],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipes/ui/category_recipe_list/category_recipe_list_screen.dart';
+import 'package:recipes/ui/favorite_recipe_list/favorite_recipe_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     CategoryRecipeListScreen(),
-    Text('Index 1: Business', style: optionStyle),
+    FavoriteRecipeListScreen(),
     Text('Index 2: School', style: optionStyle),
   ];
 

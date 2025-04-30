@@ -1,84 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipes/data/recipe_service.dart';
-import 'package:recipes/domain/model/recipe.dart';
+import 'package:recipes/ui/category_recipe_list/controller/category_recipe_list_state.dart';
+import 'package:recipes/ui/category_recipe_list/provider/controller_provider.dart';
 import 'package:recipes/ui/category_recipe_list/recipe_item/recipe_item.dart';
 import 'package:recipes/ui/widgets/empty_state.dart';
 import 'package:recipes/ui/widgets/loading.dart';
 
-class CategoryRecipeListScreen extends StatefulWidget {
+class CategoryRecipeListScreen extends ConsumerWidget {
   const CategoryRecipeListScreen({super.key});
 
   @override
-  State<CategoryRecipeListScreen> createState() => _CategoryRecipeListState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final recipeState = ref.watch(categoryRecipeListControllerProvider);
+    final favoriteRecipeListController =
+        ref.read(favoriteRecipeListControllerProvider.notifier);
 
-class _CategoryRecipeListState extends State<CategoryRecipeListScreen> {
-  final recipeService =
-      RecipeService(); // TODO hay que delegar esa creacion a otro elemento
-  List<Recipe> _recipeList = [];
-  bool _isLoading = false;
-
-  @override
-  void initState() {
-    // Esta logica se aplica cuando se crea el widget
-    super.initState();
-    _fetchRecipeListByCategory();
-  }
-
-  // TODO is delegar este codigo al controlador
-
-  Future<void> _fetchRecipeListByCategory() async {
-    setState(() {
-      _isLoading = true;
-    });
-    try {
-      final list = await recipeService.fetchRecipeListByCategory('Chicken');
-      setState(() {
-        _recipeList = list;
-        _isLoading = false;
-      });
-    } catch (error) {
-      setState(() {
-        _isLoading = false;
+    ref.listen<CategoryRecipeListState>(categoryRecipeListControllerProvider,
+        (previous, current) {
+      if (current.errorMessage != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(
-              error.toString(),
-            ),
+            content: Text(current.errorMessage ?? "Ocurrio un error"),
           ),
         );
-      });
-    }
-  }
+      }
+    });
 
-  @override
-  Widget build(BuildContext context) {
-    // Esta logica se aplica antes del renderizado
     return Scaffold(
-      body: _isLoading
+      body: recipeState.isLoading
           ? Loading()
           : Padding(
               padding: const EdgeInsets.all(16.0),
               child: SafeArea(
-                child: _recipeList.isEmpty
+                child: recipeState.listOfRecipe.isEmpty
                     ? EmptyState()
                     : GridView.count(
                         crossAxisCount: 2,
                         childAspectRatio: 0.55,
                         children: List.generate(
-                          _recipeList.length,
+                          recipeState.listOfRecipe.length,
                           (index) {
+                            final currentRecipe =
+                                recipeState.listOfRecipe[index];
+                            final bool currentRecipeIsFavorite =
+                                favoriteRecipeListController
+                                    .isFavorite(currentRecipe.id);
                             return RecipeItem(
-                              recipe: _recipeList[index],
+                              recipe: currentRecipe.copyWith(
+                                  isFavorite: currentRecipeIsFavorite),
                               onFavoriteTap: () {
-                                setState(() {
-                                  
-                                });
+                                favoriteRecipeListController
+                                    .toggleFavorite(currentRecipe);
                               },
                               onDetailTap: () {
                                 context.go(
-                                    '/home/recipeDetail/${_recipeList[index].id}');
+                                    '/home/recipeDetail/${currentRecipe.id}');
                               },
                             );
                           },
