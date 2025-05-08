@@ -13,6 +13,9 @@ class RecipeListByCategoryScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final recipeListByCategoryState =
         ref.watch(recipeListByCategoryControllerProvider);
+    ref.watch(favoriteRecipeListControllerProvider);
+    final favoriteRecipeListController =
+        ref.read(favoriteRecipeListControllerProvider.notifier);
 
     ref.listen(recipeListByCategoryControllerProvider, (previous, current) {
       if (current.errorMessage != null) {
@@ -41,15 +44,21 @@ class RecipeListByCategoryScreen extends ConsumerWidget {
                       children: List.generate(
                         recipeListByCategoryState.listOfRecipe.length,
                         (index) {
+                          final currentRecipe =
+                              recipeListByCategoryState.listOfRecipe[index];
+                          final currentRecipeWithFavoriteInfo =
+                              favoriteRecipeListController
+                                  .getRecipeWithFavoriteStatus(currentRecipe);
+
                           return RecipeItem(
-                            recipe:
-                                recipeListByCategoryState.listOfRecipe[index],
+                            recipe: currentRecipeWithFavoriteInfo,
                             onDetailTap: () {
                               context.go(
                                   '/home/recipeDetail/${recipeListByCategoryState.listOfRecipe[index].id}');
                             },
                             onFavouriteTap: () {
-                              // TODO hacer un llamado a un controlador que gestione los favoritos
+                              favoriteRecipeListController
+                                  .toggleFavoriteRecipe(currentRecipe);
                             },
                           );
                         },

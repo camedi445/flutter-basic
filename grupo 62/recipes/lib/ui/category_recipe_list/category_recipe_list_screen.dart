@@ -15,6 +15,7 @@ class CategoryRecipeListScreen extends ConsumerWidget {
     final recipeState = ref.watch(categoryRecipeListControllerProvider);
     final favoriteRecipeListController =
         ref.read(favoriteRecipeListControllerProvider.notifier);
+    ref.watch(favoriteRecipeListControllerProvider);
 
     ref.listen<CategoryRecipeListState>(categoryRecipeListControllerProvider,
         (previous, current) {
@@ -43,12 +44,11 @@ class CategoryRecipeListScreen extends ConsumerWidget {
                           (index) {
                             final currentRecipe =
                                 recipeState.listOfRecipe[index];
-                            final bool currentRecipeIsFavorite =
+                            final recipeWithFavoriteStatus =
                                 favoriteRecipeListController
-                                    .isFavorite(currentRecipe.id);
+                                    .getRecipeWithFavoriteStatus(currentRecipe);
                             return RecipeItem(
-                              recipe: currentRecipe.copyWith(
-                                  isFavorite: currentRecipeIsFavorite),
+                              recipe: recipeWithFavoriteStatus,
                               onFavoriteTap: () {
                                 favoriteRecipeListController
                                     .toggleFavorite(currentRecipe);

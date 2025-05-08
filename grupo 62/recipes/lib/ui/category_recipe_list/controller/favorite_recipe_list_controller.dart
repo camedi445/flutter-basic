@@ -40,4 +40,9 @@ class FavoriteRecipeListController extends StateNotifier<List<Recipe>> {
 
   // Obtener todas las recetas favoritas
   List<Recipe> get allFavoriteRecipes => state;
+
+  // Obtener una receta con su estado de favorito actualizo
+  Recipe getRecipeWithFavoriteStatus(Recipe recipe) {
+    return recipe.copyWith(isFavorite: isFavorite(recipe.id));
+  }
 }

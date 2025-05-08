@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipes/controller/favorite_recipe_list_controller.dart';
 import 'package:recipes/controller/recipe_list_by_category_controller.dart';
 import 'package:recipes/controller/recipe_list_by_category_state.dart';
+import 'package:recipes/domain/model/recipe.dart';
 import 'package:recipes/provider/repository_provider.dart';
 
 final recipeListByCategoryControllerProvider = StateNotifierProvider<
@@ -10,4 +12,9 @@ final recipeListByCategoryControllerProvider = StateNotifierProvider<
       RecipeListByCategoryController(recipeRepository);
   recipeListByCategoryController.initialize();
   return recipeListByCategoryController;
+});
+
+final favoriteRecipeListControllerProvider =
+    StateNotifierProvider<FavoriteRecipeListController, List<Recipe>>((ref) {
+  return FavoriteRecipeListController();
 });
