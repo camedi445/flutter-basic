@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "589571879500",
+    "project_id": "recipes-udem",
+    "storage_bucket": "recipes-udem.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589571879500:android:a5780f87a9416d08047ae9",
+        "android_client_info": {
+          "package_name": "com.example.recipes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-dJ5saSCrUv39Mr3-vG8h2CAOG763IE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
