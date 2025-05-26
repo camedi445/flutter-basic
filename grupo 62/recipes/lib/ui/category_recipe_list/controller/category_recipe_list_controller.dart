@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipes/data/recipe_service.dart';
+import 'package:recipes/data/service/recipe_service.dart';
 import 'package:recipes/ui/category_recipe_list/controller/category_recipe_list_state.dart';
 
 class CategoryRecipeListController

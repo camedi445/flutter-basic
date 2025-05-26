@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipes/ui/favorite_recipe_list/favorite_recipe_list_screen.dart';
+import 'package:recipes/ui/profile/profile_screen.dart';
 import 'package:recipes/ui/recipe_list_by_category/recipe_list_by_category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     RecipeListByCategoryScreen(),
     FavoriteRecipeListScreen(),
-    Text('Perfil', style: optionStyle),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {

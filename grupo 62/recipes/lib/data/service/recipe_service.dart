@@ -1,19 +1,3 @@
-// Obtener los datos del api
-
-// URL del endpoint
-
-// dominio ->
-// endpoint ->
-// query param -> c = Seafood
-
-// Estructura de la respuesta
-
-/* {
-      "strMeal": "Escovitch Fish",
-      "strMealThumb": "https://www.themealdb.com/images/media/meals/1520084413.jpg",
-      "idMeal": "52944"
-    } */
-
 import 'dart:convert';
 
 import 'package:recipes/domain/model/recipe.dart';

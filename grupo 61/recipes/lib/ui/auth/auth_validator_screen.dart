@@ -1,11 +1,22 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipes/provider/repository_provider.dart';
 import 'package:recipes/ui/auth/login/login_screen.dart';
+import 'package:recipes/ui/home/home_screen.dart';
 
-class AuthValidatorScreen extends StatelessWidget {
+class AuthValidatorScreen extends ConsumerWidget {
   const AuthValidatorScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return LoginScreen();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authStateProvider);
+
+    return authState.when(
+        data: (user) {
+          if (user != null) return const HomeScreen();
+          return const LoginScreen();
+        },
+        error: (_, trace) => const LoginScreen(),
+        loading: () => Container());
   }
 }

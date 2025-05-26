@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipes/controller/favorite_recipe_list_controller.dart';
+import 'package:recipes/controller/login_controller.dart';
+import 'package:recipes/controller/login_state.dart';
 import 'package:recipes/controller/recipe_list_by_category_controller.dart';
 import 'package:recipes/controller/recipe_list_by_category_state.dart';
 import 'package:recipes/domain/model/recipe.dart';
@@ -17,4 +19,9 @@ final recipeListByCategoryControllerProvider = StateNotifierProvider<
 final favoriteRecipeListControllerProvider =
     StateNotifierProvider<FavoriteRecipeListController, List<Recipe>>((ref) {
   return FavoriteRecipeListController();
+});
+
+final loginControllerProvider =
+    StateNotifierProvider<LoginController, LoginState>((ref) {
+  return LoginController(ref);
 });

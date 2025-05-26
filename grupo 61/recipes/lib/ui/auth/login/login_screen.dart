@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipes/provider/auth_validator_provider.dart';
+import 'package:recipes/provider/controller_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -90,7 +91,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
-                          // TODO hacer login contra firebase
+                          ref.read(loginControllerProvider.notifier).login(
+                              _emailController.text, _passwordController.text);
                         }
                       },
                       child: Text('Iniciar sesión'),
